@@ -12,6 +12,9 @@ dotenv.config( { path: './config.env'} );
 
 
 
+// routing call
+app.use (require ("./router/auth"))
+
 // get database from mongoDB Server 
 require("./database/connection")
 const PORT = process.env.PORT;
@@ -19,34 +22,6 @@ const PORT = process.env.PORT;
 
 
 
-const middleware = (req,res, next) => {
-    console.log("running middleware Successfully")
-    next();
-}
-
-
-
-
-
-
-
-app.get ('/about' , middleware, (req, res ) =>{
-    res.send ("about page testing")
-    console.log("running about testing")
-});
-
-app.get ('/contact', (req, res ) =>{
-    res.send ("contact page testing")
-});
-
-
-app.get ('/signin' , (req, res ) =>{
-    res.send ("signin page testing")
-});
-
-app.get ('/signup' , (req, res ) =>{
-    res.send ("signup page testing")
-});
 
 
 app.listen(PORT, () =>
