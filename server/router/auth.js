@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+require("../database/connection")
+const User = require("../module/userSchema")
 
 // const middleware = (req,res, next) => {
 //     console.log("running middleware Successfully")
@@ -8,11 +10,9 @@ const router = express.Router();
 // }
 
 
-
-
-
 router.get ('/' , (req, res ) =>{
     res.send ("home page testing router ")
+    console.log(User)
 });
 
 router.get ('/about',(req, res ) =>{
@@ -35,6 +35,24 @@ router.post ('/register' , (req, res ) =>{
         res.status(422).json({error: "please fill the field properly"})
     }
 
+    User.findOne({email : email})
+    .then((userExits)=>{
+        if(userExits) {
+            return res.status(422).json({error: "User Already Exits"})
+        }
+
+        const user =  new User({ name, email, phone, work, password, confirmPassword })
+        user.save().then(()=>{
+            res.status(201).json({ message: "User Successfully Registered" })
+        })
+        .catch((err)=> {
+            res.status(500).json({ error: "Not Registered" })
+        })
+
+
+    })
+    res.json({message: req.body})
+    console.log(req.body);
 
 });
 
