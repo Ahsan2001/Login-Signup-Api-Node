@@ -29,7 +29,7 @@ router.get ('/login' , (req, res ) =>{
 });
 
 router.post ('/register' , (req, res ) =>{
-
+    
     const {name,email,phone,work,password,confirmPassword} = req.body;
     if ( !name  || !email || !phone || !work || !password || !confirmPassword ) {
         res.status(422).json({error: "please fill the field properly"})
@@ -40,7 +40,6 @@ router.post ('/register' , (req, res ) =>{
         if(userExits) {
             return res.status(422).json({error: "User Already Exits"})
         }
-
         const user =  new User({ name, email, phone, work, password, confirmPassword })
         user.save().then(()=>{
             res.status(201).json({ message: "User Successfully Registered" })
@@ -48,12 +47,7 @@ router.post ('/register' , (req, res ) =>{
         .catch((err)=> {
             res.status(500).json({ error: "Not Registered" })
         })
-
-
     })
-    res.json({message: req.body})
-    console.log(req.body);
-
 });
 
 module.exports = router;
