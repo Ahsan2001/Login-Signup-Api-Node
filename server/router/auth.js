@@ -68,12 +68,10 @@ router.post("/api/signup", async (req, res) => {
         return res.json({ message: "Required field are missing" });
     }
     const hashPass = await bcrypt.hash(password, 10);
-
     const userObj = {
         ...req.body,
         password: hashPass,
     };
-
     User.findOne({ email}, (error, user) => {
         if (error) {
             res.send(error);
