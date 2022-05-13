@@ -121,7 +121,7 @@ router.post("/api/login", (req, res) => {
 router.post("/api/v2/signup", async (req, res) => {
     const { name, phone, email, password, confirmPassword, work } = req.body;
 
-    if (!name, !phone, !email, !password, !confirmPassword, !work) {
+    if (!name || !phone || !email || !password || !confirmPassword || !work) {
         res.send({ message: "please Put All the Fields" })
     }
     const passHashKarhaHoon = await bcrypt.hash(password,10)
@@ -153,7 +153,7 @@ router.post("/api/v2/signup", async (req, res) => {
 router.post("/api/v2/login", (req, res) => {
     const { email, password } = req.body;
 
-    if (!email, !password) {
+    if (!email || !password) {
         res.send({ message: "Enter tu karo jani kuch" })
     }
 
@@ -179,5 +179,14 @@ router.post("/api/v2/login", (req, res) => {
     })
 }
 )
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
